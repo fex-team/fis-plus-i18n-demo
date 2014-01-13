@@ -1,0 +1,44 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: widget/b.js:1
+msgid "test"
+msgstr "test"
+
+#: page/index.tpl:32
+msgid "你好，世界"
+msgstr "Hello, World!"
+
+#: page/index.tpl:34
+msgid "你好，北京"
+msgstr "Hello, BeiJing!"
+
+#: page/index.tpl:33
+msgid "你好，百度"
+msgstr "Hello, BaiDu!"
+
+#: page/index.tpl:35
+msgid "北京，再见！"
+msgstr "BeiJing, Goodbye!"
+
+#: widget/a.js:2
+msgid "我知道的你不知道的.....      "
+msgstr "I know you do not know ....."
+
+#: widget/a.js:1
+msgid "知道"
+msgstr "inow"
