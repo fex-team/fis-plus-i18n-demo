@@ -1,4 +1,4 @@
-{%extends file="fis:common:page/layout.tpl"%}
+{%extends file="common/page/layout.tpl"%}
 {%block name="body"%}
     <ul>
         <li>{%__('你好，世界')%}</li>

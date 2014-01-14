@@ -43,7 +43,7 @@ class FISResource {
     public static function loadI18n($smarty) {
         $ret = array();
         foreach (self::$arrMap as $strNamespace => $map) {
-            $tansId = $strNamespace . ':widget/translate.tpl';
+            $tansId = $strNamespace . ':widget/fis_translate.tpl';
             if (isset($map['res']) && isset($map['res'][$tansId])) {
                 $res = $map['res'][$tansId];
                 $output= $smarty->getSubTemplate($res['uri']);
