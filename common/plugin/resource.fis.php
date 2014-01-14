@@ -31,10 +31,13 @@ class Smarty_Resource_Fis extends Smarty_Resource_Custom {
             $subpath = substr($id, $pos + 1); 
         }
 
-
         $this->initializeFIS($namespace, $source->smarty);
 
-        $uri = FISResource::getUri($id);
+        $uri = FISResource::getUri($id, $source->smarty);
+
+        if (!$uri) {
+            trigger_error('undefined resource "fis:' . $source->name . '"' , E_USER_ERROR);
+        }
 
         //@TODO 后续修改fisp的配置文件去掉/template/
         $uri = str_replace('/template/', '', $uri);
