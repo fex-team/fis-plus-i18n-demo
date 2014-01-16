@@ -14,6 +14,7 @@ class FISTranslate {
     }
 
     static public function scope($modules, $smarty) {
+        global $fis_config;
         $i18n_val = isset($fis_config['i18n_variable']) ? $fis_config['i18n_variable'] : 'i18n';
         if (!is_array($modules)) {
             $modules = array($modules);

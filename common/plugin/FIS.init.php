@@ -2,6 +2,8 @@
 
 define('FIS_PLUGIN_ROOT', dirname(__FILE__) . '/');
 
+global $fis_config;
+
 // i18n
 require_once (FIS_PLUGIN_ROOT . 'FISTranslate.class.php');
 // FIS resource api
