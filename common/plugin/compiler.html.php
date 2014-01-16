@@ -1,6 +1,5 @@
 <?php
 function smarty_compiler_html($arrParams,  $smarty){
-    file_put_contents('/tmp/fis.log', var_export($smarty, true));
     $strResourceApiPath = preg_replace('/[\\/\\\\]+/', '/', dirname(__FILE__) . '/FISResource.class.php');
     $strFramework = $arrParams['framework'];
     unset($arrParams['framework']);
@@ -19,14 +18,18 @@ function smarty_compiler_html($arrParams,  $smarty){
             $strAttr .= ' ' . $_key . '="<?php echo ' . $_value . ';?>"';
         }
     }
-
+    $strCode .= "<?php ob_start(); ?>";
     return $strCode . "<html{$strAttr}>";
 }
 
 function smarty_compiler_htmlclose($arrParams,  $smarty){
-    $strCode = '<?php ';
-    $strCode .= '$_smarty_tpl->registerFilter(\'output\', array(\'FISResource\', \'renderResponse\'));';
-    $strCode .= '?>';
-    $strCode .= '</html>';
+    $strCode = '</html>';
+    $strCode .= '<?php echo FISResource::renderResponse(ob_get_clean()); ?>';
     return $strCode;
 }
+
+
+
+
+
+

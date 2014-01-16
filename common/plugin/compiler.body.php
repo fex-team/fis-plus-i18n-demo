@@ -18,6 +18,7 @@ function smarty_compiler_bodyclose($arrParams,  $smarty){
     $strCode = '</body>';
     $strCode .= '<?php ';
     $strCode .= 'if(class_exists(\'FISResource\', false)){';
+    $strCode .= 'echo FISResource::loadI18n($_smarty_tpl->smarty);';
     $strCode .= 'echo FISResource::jsHook();';
     $strCode .= '}';
     $strCode .= '?>';

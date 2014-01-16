@@ -1,3 +1,5 @@
+{%translate module="common"%}
+
 {%html framework="i18n:static/mod.js"%}
     {%head%}
         <meta chaset="utf-8" />

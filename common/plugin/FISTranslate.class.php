@@ -5,12 +5,25 @@ class FISTranslate {
     static public $config_dir;
     static public $lang_map = array();
 
-    static public function init($locale, $modules, $config_dir) {
+    static public function init($locale, array $modules, $config_dir) {
         self::$locale = $locale;
         self::$config_dir = $config_dir;
         foreach ($modules as $namespace) {
             self::register($namespace);
         }
+    }
+
+    static public function scope($modules, $smarty) {
+        $i18n_val = isset($fis_config['i18n_variable']) ? $fis_config['i18n_variable'] : 'i18n';
+        if (!is_array($modules)) {
+            $modules = array($modules);
+        }
+
+        self::init(
+            $smarty->getVariable($i18n_val)->value,
+            $modules,
+            $smarty->getConfigDir()
+        );
     }
 
     /**
@@ -21,7 +34,6 @@ class FISTranslate {
         foreach (self::$config_dir as $dir) {
             $locale = self::$locale ? '.' . self::$locale : ''; 
             $prefix = preg_replace('/[\\/\\\\]+/', '/', $dir . '/lang/' . $namespace . $locale);
-
             if (is_file($prefix . '.php')) {
                 self::$lang_map[self::$locale] = require_once($prefix . '.php');
             } else if (is_file($prefix . '.json')) {
@@ -45,12 +57,11 @@ class FISTranslate {
 
 }
 
-
-/**
- * 翻译函数
- * @access global
- * @name __
- */
-function __($string) {
-    return FISTranslate::getText($string);
-}
+// /**
+//  * 翻译函数
+//  * @access global
+//  * @name __
+//  */
+// function __($string) {
+//     return FISTranslate::getText($string);
+// }

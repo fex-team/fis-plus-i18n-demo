@@ -1,10 +1,11 @@
 {%extends file="common/page/layout.tpl"%}
 {%block name="body"%}
+    {%translate module="i18n"%}
     <ul>
-        <li>{%__('你好，世界')%}</li>
-        <li>{%__('你好，百度')%}</li>
-        <li>{%__('你好，北京')%}</li>
-        <li>{%__('北京，再见！')%}</li>
+        <li>{%'你好，世界'|gettext%}</li>
+        <li>{%'你好，百度'|gettext%}</li>
+        <li>{%'你好，北京'|gettext%}</li>
+        <li>{%'北京，再见！'|gettext%}</li>
     </ul>
 
     {%script%}

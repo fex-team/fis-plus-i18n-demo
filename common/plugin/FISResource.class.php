@@ -46,7 +46,7 @@ class FISResource {
             $tansId = $strNamespace . ':widget/fis_translate.tpl';
             if (isset($map['res']) && isset($map['res'][$tansId])) {
                 $res = $map['res'][$tansId];
-                $output= $smarty->getSubTemplate($res['uri']);
+                $output= $smarty->fetch($res['uri']);
                 $ret[] = $output;
             }
         }
@@ -56,13 +56,11 @@ class FISResource {
 
     //输出模板的最后，替换css hook为css标签集合,替换js hook为js代码
     public static function renderResponse($strContent, $smarty) {
-        
-        $strI18n = self::loadI18n($smarty);
 
         $cssIntPos = strpos($strContent, self::CSS_LINKS_HOOK);
-        
+
         if($cssIntPos !== false){
-            $strContent = substr_replace($strContent, self::render('css') . $strI18n, $cssIntPos, strlen(self::CSS_LINKS_HOOK));
+            $strContent = substr_replace($strContent, self::render('css'), $cssIntPos, strlen(self::CSS_LINKS_HOOK));
         }
 
         $jsIntPos = strpos($strContent, self::JS_SCRIPT_HOOK);
@@ -70,7 +68,6 @@ class FISResource {
             $jsContent = self::render('js') . self::renderScriptPool();
             $strContent = substr_replace($strContent, $jsContent, $jsIntPos, strlen(self::JS_SCRIPT_HOOK));
         }
-        self::reset();
 
         return $strContent;
     }
