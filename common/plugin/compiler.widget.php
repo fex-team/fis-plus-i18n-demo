@@ -1,27 +1,5 @@
 <?php
 
-class fis_widget_map {
-
-    private static $arrCached = array();
-
-    public static function lookup(&$strFilename, &$smarty){
-        $strPath = self::$arrCached[$strFilename];
-        if(isset($strPath)){
-            return $strPath;
-        } else {
-            $arrConfigDir = $smarty->getConfigDir();
-            foreach ($arrConfigDir as $strDir) {
-                $strPath = preg_replace('/[\\/\\\\]+/', '/', $strDir . '/' . $strFilename);
-                if(is_file($strPath)){
-                    self::$arrCached[$strFilename] = $strPath;
-                    return $strPath;
-                }
-            }
-        }
-        trigger_error('missing map file "' . $strFilename . '"', E_USER_ERROR);
-    }
-}
-
 function smarty_compiler_widget($arrParams,  $smarty){
     //支持1.X widget 通过path属性判断 同时判断是否有name属性
     if (isset($arrParams['path'])) {
@@ -61,8 +39,17 @@ function smarty_compiler_widget($arrParams,  $smarty){
             $strCode .= 'trigger_error(\'missing function define "\'.' . $strTplFuncName . '.\'" in tpl "\'.$_tpl_path.\'"\', E_USER_ERROR);';
             $strCode .= '}';
         } else {
+            $strCode .= '$_scope_parent_tpl_vars = Smarty::$global_tpl_vars;';
+            foreach ($arrParams as $_key => $_val) {
+                if (!is_int($_key)) {
+                    $_key = "'" . $_key . "'";
+                }
+                $strCode .= ' Smarty::$global_tpl_vars['.$_key.'] = new Smarty_Variable(' . $_val . ');';
+            }
             $strCode .= 'echo $_smarty_tpl->fetch($_tpl_path);';
+            $strCode .= 'Smarty::$global_tpl_vars = $_scope_parent_tpl_vars;';
         }
+
         $strCode .= '}else{';
         $strCode .= 'trigger_error(\'unable to locale resource "\'.' . $strName . '.\'"\', E_USER_ERROR);';
         $strCode .= '}';

@@ -39,7 +39,15 @@ function smarty_compiler_pagelet($arrParams,  $smarty){
             $strCode .= 'trigger_error(\'missing function define "\'.' . $strTplFuncName . '.\'" in tpl "\'.$_tpl_path.\'"\', E_USER_ERROR);';
             $strCode .= '}';
         } else {
+            $strCode .= '$_scope_parent_tpl_vars = Smarty::$global_tpl_vars;';
+            foreach ($arrParams as $_key => $_val) {
+                if (!is_int($_key)) {
+                    $_key = "'" . $_key . "'";
+                }
+                $strCode .= ' Smarty::$global_tpl_vars['.$_key.'] = new Smarty_Variable(' . $_val . ');';
+            }
             $strCode .= 'echo $_smarty_tpl->fetch($_tpl_path);';
+            $strCode .= 'Smarty::$global_tpl_vars = $_scope_parent_tpl_vars;';
         }
 
         $strCode .= '}else{';
